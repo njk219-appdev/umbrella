@@ -1,7 +1,7 @@
-p "Where are you?"
-input = "seattle"
-# input = gets.chomp
-p "Checking the weather at #{input}. . . ."
+puts "Where are you?"
+#input = "seattle"
+input = gets.chomp
+puts "Checking the weather at #{input}. . . ."
 
 gmaps_url = "https://maps.googleapis.com/maps/api/geocode/json?address=#{input}&key=#{ENV.fetch("GMAPS_KEY")}"
 
@@ -18,7 +18,7 @@ location = geometry.fetch("location")
 lat = location.fetch("lat")
 long = location.fetch("lng")
 # gets lattitude and longitude
-p "Your coordinates are #{lat.to_s}, #{long.to_s}."
+puts "Your coordinates are #{lat.to_s}, #{long.to_s}."
 
 #-----------------------------------------------
 # Starting weather API
@@ -33,9 +33,9 @@ data = hourly_weather.fetch("data")
 hour = data.at(0)
 weather = hour.fetch("summary")
 likelihood_of_rain = hour.fetch("precipProbability")
-p "It is currently #{current_temp}F."
-p "Next hour: #{weather}"
-p likelihood_of_rain
+puts "It is currently #{current_temp}F."
+puts "Next hour: #{weather}"
+#p likelihood_of_rain
 
 
 
@@ -46,10 +46,10 @@ if likelihood_of_rain > 0
     likelihood_of_rain = hour.fetch("precipProbability")
     percent_rain = likelihood_of_rain*100
 
-    p "In #{(i+1).to_s} hours, there is a #{percent_rain.to_s} chance of precipitation."
+    puts "In #{(i+1).to_s} hours, there is a #{percent_rain.to_s} chance of precipitation."
     i = i + 1
   end
-  p "You will likely need an umbrella!"
+  puts "You will likely need an umbrella!"
 else
-  p "You probably won't need an umbrella."
+  puts "You probably won't need an umbrella."
 end
